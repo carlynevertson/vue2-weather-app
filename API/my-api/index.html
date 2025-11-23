@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Creating an API</title>
+	</head>
+	<body>
+		<h2>User List</h2>
+		<ul id="user-list"></ul>
+
+		<script>
+			async function fetchUsers() {
+				try {
+					const response = await fetch('http://localhost:3000/api/users');
+					const data = await response.json();
+
+					const list = document.getElementById('user-list');
+					list.innerHTML = '';
+
+					data.forEach((user) => {
+						const li = document.createElement('li');
+						li.textContent = user.name;
+						list.append(li);
+					});
+
+					console.log(data);
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			}
+			fetchUsers();
+		</script>
+	</body>
+</html>
